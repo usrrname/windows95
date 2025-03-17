@@ -1,8 +1,11 @@
 /* tslint:disable */
+import fs from 'fs'
+import { Bundler } from 'parcel'
+import path from 'path'
+import { fileURLToPath } from 'url'
 
-const Bundler = require('parcel-bundler')
-const path = require('path')
-const fs = require('fs')
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 
 async function copyLib() {
   const target = path.join(__dirname, '../dist/static')
@@ -24,11 +27,11 @@ async function copyLib() {
 
   // Overwrite
   const indexContents = fs.readFileSync(index, 'utf-8');
-  const replacedContents = indexContents.replace('<!-- libv86 -->', '<script src="libv86.js"></script>')
+  const replacedContents = indexContents.replace('<!-- libv86 -->', '<script src="libv86.js" type="module"></script>')
   fs.writeFileSync(index, replacedContents)
 }
 
-async function compileParcel (options = {}) {
+export const compileParcel = async (options = {}) => {
   const entryFiles = [
     path.join(__dirname, '../static/index.html'),
     path.join(__dirname, '../src/main/main.ts')
@@ -67,8 +70,4 @@ async function compileParcel (options = {}) {
   await copyLib();
 }
 
-module.exports = {
-  compileParcel
-}
-
-if (require.main === module) compileParcel()
+export default compileParcel

@@ -1,10 +1,14 @@
-const path = require('path');
-const fs = require('fs');
-const package = require('./package.json');
+import dotenv from 'dotenv';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import manifest from './package.json' with { type: 'json' };
+dotenv.config();
 
-require('dotenv').config()
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-process.env.TEMP = process.env.TMP = `C:\\Users\\FelixRieseberg\\AppData\\Local\\Temp`
+process.env.TEMP = process.env.TMP = `C:\\Users\\JenChan\\AppData\\Local\\Temp`
 
 const FLAGS = {
   SIGNTOOL_PATH: process.env.SIGNTOOL_PATH,
@@ -30,17 +34,17 @@ const windowsSign = {
   hashes: ["sha256"],
 }
 
-module.exports = {
+export default {
   hooks: {
-    generateAssets: require('./tools/generateAssets'),
+    generateAssets: './tools/generateAssets'
   },
   packagerConfig: {
     asar: false,
     icon: path.resolve(__dirname, 'assets', 'icon'),
-    appBundleId: 'com.felixrieseberg.windows95',
+    appBundleId: 'com.jenchan.windows95',
     appCategoryType: 'public.app-category.developer-tools',
     win32metadata: {
-      CompanyName: 'Felix Rieseberg',
+      CompanyName: 'Jen Chan',
       OriginalFilename: 'windows95'
     },
     osxSign: {
@@ -92,7 +96,7 @@ module.exports = {
           remoteReleases: '',
           iconUrl: 'https://raw.githubusercontent.com/felixrieseberg/windows95/master/assets/icon.ico',
           loadingGif: './assets/boot.gif',
-          setupExe: `windows95-${package.version}-setup-${arch}.exe`,
+          setupExe: `windows95-${manifest.version}-setup-${arch}.exe`,
           setupIcon: path.resolve(__dirname, 'assets', 'icon.ico'),
           windowsSign
         }

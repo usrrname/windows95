@@ -1,7 +1,6 @@
-/* tslint:disable */
 
-const { compileParcel } = require('./parcel-build')
+import { compileParcel } from './parcel-build'
 
-module.exports = async () => {
+export const generateAssets = async () => {
   await Promise.all([compileParcel()])
 }

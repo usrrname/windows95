@@ -21,9 +21,9 @@
 #       xhost +
 #
 
-FROM node:20-bullseye
+FROM node:16-bullseye
 
-LABEL name="windows95-arm64"
+LABEL maintainer="usrrname"
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
@@ -49,10 +49,10 @@ COPY patches ./patches
 
 # Install dependencies
 RUN npm config set legacy-peer-deps true && \
-    npm install -g @electron-forge/cli@6.4.2 patch-package && \
-    npm install fs-extra@11.2.0 glob@8.1.0 && \
+    npm install -g @electron-forge/cli@6.0.5 patch-package && \
+    npm install fs-extra@9.1.0 glob@7.2.3 rimraf@3.0.2 && \
     npm cache clean --force && \
-    npm install --legacy-peer-deps --force && \
+    npm install --legacy-peer-deps --force --no-package-lock && \
     npm rebuild
 
 # Copy the rest of the application

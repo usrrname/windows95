@@ -18,7 +18,7 @@
     "noImplicitThis": true,
     "noUnusedParameters": true,
     "noEmitHelpers": false,
-    "module": "commonjs",
+    "module": "ESNext",
     "moduleResolution": "node",
     "pretty": true,
     "target": "es2023",

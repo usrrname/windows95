@@ -1,7 +1,7 @@
 /* tslint:disable */
 
-const childProcess = require('child_process')
-const path = require('path')
+import childProcess from 'child_process'
+import path from 'path'
 
 async function run (name, bin, args = []) {
   await new Promise((resolve, reject) => {

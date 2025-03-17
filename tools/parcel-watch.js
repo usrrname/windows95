@@ -1,4 +1,4 @@
-const { compileParcel } = require('./parcel-build')
+import { compileParcel } from './parcel-build'
 
 async function watchParcel () {
   return compileParcel({ watch: true })
